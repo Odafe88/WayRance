@@ -9,7 +9,7 @@ It solves this by Rewarding individuals/organizations based on the Amount of was
 2. Waste's are the Validated by WayRance Admin and a time for Pickup is scheduled via email.
 3. Disposers ae then rewarded based on the data on the waste they have submitted. 
 
-## How are funs generated?
+## How are funds generated?
 Funds are generated primarily from sales of waste to Recycling plants. These funds are then used to reward disposers and cover operational costs.
 The Project will only focus on two types of Waste Materials: Plastic and Metals.
 
