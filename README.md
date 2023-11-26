@@ -13,13 +13,13 @@ It solves this by Rewarding individuals/organizations based on the Amount of was
 Funds are generated primarily from sales of waste to Recycling plants. These funds are then used to reward disposers and cover operational costs.
 The Project will only focus on two types of Waste Materials: Plastic and Metals.
 
-- This is an original work by our team. We build on top of the following tooling: React, TailwindCSS, Wagmi, Ethers.Js, Toronet.
+- This is an original work by our team. We build on top of the following tooling: React, TailwindCSS, Solidity, Wagmi, Ethers.Js, Toronet.
 
-- Demo: <Link>
+- Demo: -[https://way-rance.vercel.app/]
 
 - Video: <Link>
 
-- Tweet: <Link>
+- Tweet: -[https://x.com/DafeAlaiya/status/1728857348771615138?s=20]
 
 NETWORK: TESTNET
 CONTRACT ADDRESS: 0xE230F7AEd1a27C47494430Beb072DdF77793ef1E
