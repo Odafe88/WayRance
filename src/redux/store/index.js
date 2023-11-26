@@ -1,6 +1,7 @@
-import { legacy_createStore as createStore } from "redux";
-import { persistStore } from 'redux-persist';
-import storage from 'redux-persist/lib/storage' 
+import { legacy_createStore as createStore, applyMiddleware } from "redux";
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import ReduxThunk from 'redux-thunk';
 
 import userReducer from "../user/user_reducer";
  
@@ -9,10 +10,9 @@ const persistConfig = {
   storage,
 }
  
-const persistedReducer = persistReducer(persistConfig, userReducer)
- 
-export default () => {
-  let store = createStore(persistedReducer)
-  let persistor = persistStore(store)
-  return { store, persistor }
-}
+const persistedReducer = persistReducer(persistConfig, userReducer);
+let store = createStore(persistedReducer, applyMiddleware(ReduxThunk));
+let persistor = persistStore(store);
+
+export default store;
+export {persistor}

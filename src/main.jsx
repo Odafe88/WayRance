@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Provider } from "react";
 import "./index.css";
 import App from "./App";
 import '../polyfills.js'
@@ -12,7 +11,7 @@ import { ToastContainer } from "react-toastify";
 import { publicProvider } from 'wagmi/providers/public';
 import { toronet } from "./utils/chain.ts";
 
-import {store, persistor} from "./redux/store/index.js";
+import store, {persistor} from "./redux/store/index.js";
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from "react-redux";
 
@@ -40,9 +39,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <Provider store={persistor}>
       <WagmiConfig config={wagmiConfig}>
-      <PersistGate persistor={persistor}>
           <RainbowKitProvider
           theme={lightTheme({
             accentColor: '#EFAE07',
@@ -65,8 +62,6 @@ root.render(
               />
             <App />
           </RainbowKitProvider>
-        </PersistGate>
       </WagmiConfig>
-    </Provider>
 </React.StrictMode>
 );

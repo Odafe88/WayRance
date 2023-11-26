@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useGlobalState, setGlobalState, getGlobalState } from '../hooks/globalState';
+import { useGlobalState, setGlobalState } from '../hooks/globalState';
 import CustomButton from './CustomButton';
 import { Link } from 'react-router-dom';
 
@@ -21,7 +21,7 @@ const DashboardBox = () => {
       <div className='w-full p-4 bg-white border-2 rounded-md'>
         <h1 className=' text-xl font-bold md:text-3xl text-blue-950 mr-5 my-2'>Dashboard</h1>
            
-        <div className="grid grid-cols-3 bg-slate-200 p-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 bg-slate-200 p-2">
           <div className="text-md font-semibold my-2">
           <p>Waste Recorded: {wasteRecorded}</p>
           </div>

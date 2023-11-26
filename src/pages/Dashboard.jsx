@@ -5,7 +5,7 @@ import DashboardBox from "../components/DashboardBox";
   return (
     <div className="bg-[#040D12] min-h-screen px-4 py-8
     ">
-      zD
+      Dashboard
     </div>
   )
 }

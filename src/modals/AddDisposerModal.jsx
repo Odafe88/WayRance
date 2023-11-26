@@ -3,9 +3,9 @@ import { IoCloseCircle } from "react-icons/io5";
 import { toast } from "react-toastify";
 import { useDebounce } from "use-debounce";
 import { useNavigate } from "react-router-dom";
-import { useContractSend } from "../../hooks/useContractWrite";
-import CustomButton from "../CustomButton";
-import { useGlobalState, setGlobalState, getGlobalState } from "../../hooks/globalState";
+import { useContractSend } from "../hooks/useContractWrite"
+import CustomButton from "../components/CustomButton";
+import { useGlobalState, setGlobalState} from "../hooks/globalState";
 
 
 const AddDisposerModal = () => {
@@ -32,7 +32,7 @@ const AddDisposerModal = () => {
   };
 
   const toggleClose = () => {
-    setGlobalState('regModal', false);
+    setGlobalState("regModal", false);
     handleClear();
   }
 
@@ -59,13 +59,14 @@ const AddDisposerModal = () => {
       throw new Error("Please fill the correct details")
     }
 
-    const transactTx = await registerUser();
+    const transactTx = registerUser();
     setLoading(false)
 
-    await transactTx
-    setGlobalState('registeredUser', true)
+    transactTx
+    
     setToggle(false)
     handleClear()
+    setGlobalState("registeredUser", true);
     console.log("User Registered:", registeredUser)
       
   }
@@ -100,8 +101,9 @@ const AddDisposerModal = () => {
           className="flex justify-center fixed left-0 top-0 items-center w-full h-full mt-6"
       >
         
-        <div className="w-[600px] rounded-2xl bg-[#06102b] p-5">
+        <div className="w-fit md:w-[600px] rounded-md bg-[#040D12] p-5">
           <IoCloseCircle onClick={toggleClose} className={regModal ? `cursor-pointer w-[40px] text-white my-4` : `scale-0`} />
+          <h3 className="font-bold text-xl md:text-2xl text-white mb-4">Register as Disposer</h3>
           <form onSubmit={addUser}>
             <div className="mb-8">
               <input
@@ -151,9 +153,9 @@ const AddDisposerModal = () => {
               <button
                 type="submit"
                 className="bg-yellow-500 rounded-sm px-4 py-2 font-bold 
-                text-xl font-semibold cursor-pointer"
+                text-lg md:text-xl font-semibold cursor-pointer"
               >
-                {loading ? "Loading" : "Register"}
+                {loading ? "Loading" : "Submit"}
               </button>
               {/* <button type="button" onClick={() => setToggle(false)}>
                 <IoCloseCircle size={30} color="#06102b" />

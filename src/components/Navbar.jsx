@@ -2,9 +2,11 @@ import ConnectWallet from "./element/connectWallet";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { useGlobalState} from "../hooks/globalState"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [admin] = useGlobalState("admin")
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -13,18 +15,24 @@ export default function Navbar() {
   return (
     <header className="mx-auto bg-[#040D12]">
       <nav className=" flex py-4 px-8 items-center justify-between ">
-        <div className="w-[60px] sm:w-[80px]  cursor-pointer">
+        <div className="w-[60px] md:w-[80px]  cursor-pointer">
           <h1 className="text-[#fff] text-[20px] font-bold ">
             <Link to="/">WayRance</Link>
           </h1>
         </div>
-        <div className="hidden sm:flex sm:items-center sm:justify-between gap-6">
-          <h3 className="
-          text-[#fff] cursor-pointer text-[16px] font-bold leading-none
-          hover:text-yellow-500
-          ">
-            <Link to="/dashboard">Dashboard</Link>
-          </h3>
+        {
+          admin ?
+          
+            <div className="hidden md:flex md:items-center md:justify-between gap-6">
+              <h3 className="
+                text-[#fff] text-[16px] font-bold leading-none
+                hover:text-yellow-500
+              ">
+                <Link to="/admin">Admin</Link>
+              </h3>
+            </div>
+          :
+        <div className="hidden md:flex md:items-center md:justify-between gap-6">
           <h3 className="
           text-[#fff] text-[16px] font-bold leading-none
           hover:text-yellow-500
@@ -32,7 +40,8 @@ export default function Navbar() {
             <Link to="/disposer">Disposer</Link>
           </h3>
         </div>
-        <div className="hidden  sm:flex">
+        }
+        <div className="hidden  md:flex">
           <ConnectWallet />
         </div>
 
@@ -45,6 +54,7 @@ export default function Navbar() {
             )}
           </button>
         </div>
+        
       </nav>
 
       {isOpen && (
