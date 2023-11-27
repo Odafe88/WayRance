@@ -1,5 +1,5 @@
 {
-  "address": "0xe7C91dE79178b2E65aF9133565BAD279D2D6D4eE",
+  "address": "0x5Ec93469583ccaa023e32D43F916979eF4A983F7",
   "abi": [
     {
       "inputs": [],
@@ -550,9 +550,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
-          "name": "_disposerId",
-          "type": "uint256"
+          "internalType": "address",
+          "name": "_disposer",
+          "type": "address"
         },
         {
           "internalType": "uint256",
@@ -572,9 +572,10 @@
       ],
       "name": "wastePayment",
       "outputs": [],
-      "stateMutability": "nonpayable",
+      "stateMutability": "payable",
       "type": "function",
-      "signature": "0xb99230b1"
+      "payable": true,
+      "signature": "0x2887ba13"
     },
     {
       "inputs": [

@@ -58,7 +58,7 @@ contract WayRance is Ownable {
 
     // Constructor to set the waste admin during deployment
     constructor() {
-        wasteAdmin = 0xf03FD6684637416723715871221180BC5D912BD4;
+        wasteAdmin = payable(0xf03FD6684637416723715871221180BC5D912BD4);
     }
 
     // Struct to represent waste records
@@ -149,14 +149,15 @@ contract WayRance is Ownable {
 
 
     // Funtion for waste Admin to send payment to hospital
-    function wastePayment(uint256 _disposerId, uint256 _wasteId, address _wasteAdmin, uint256 amount) external onlyWasteAdmin  {
+    function wastePayment(address _disposer, uint256 _wasteId, address _wasteAdmin, uint256 amount) external onlyWasteAdmin payable  {
         require(!wasteRecords[_wasteId].isValidated, "Waste is already validated");
 
+        uint newAmount = amount * 1 ether;
     // Use the ERC-20 token address stored in the contract
         IToroTokenERC20(_wasteAdmin).transferFrom(
-            msg.sender,
-            disposers[_disposerId].walletAddress,
-            amount
+            _wasteAdmin,
+            _disposer,
+            newAmount
         );
 
 

@@ -17,16 +17,6 @@ import { setRegisteredUser, setCurrentUser } from "./redux/user/user_actions.js"
 export default function App() {
 
   const {address} = useAccount()
-  const resp = useContractCall("getAdminAddress");
-  const adMinAddress = resp;
-  const dispatch = useDispatch();
-
-  if (address == adMinAddress) {
-    dispatch(setCurrentUser("admin"))
-  } else {
-    dispatch(setCurrentUser("disposer"))
-  }
-
   
 
   const router = createBrowserRouter(

@@ -1,84 +1,82 @@
-import React, {useState, useEffect } from 'react'
-import { toast } from'react-toastify'
-import { useDebounce } from 'use-debounce'
+import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { useDebounce } from 'use-debounce';
 
-import { useContractTrans } from '../hooks/useContractTrans'
-import ERC20 from '../abi/torotokenerc20.json' 
+import { useContractApprove, useContractTrans } from '../hooks/useContractTrans';
+import ERC20 from '../abi/torotokenerc20.json';
 
-import { useAccount, useBalance} from 'wagmi'
+import { useAccount, useBalance } from 'wagmi';
 
 const PayDisposer = () => {
   const [loading, setLoading] = useState(false);
 
-  const [disposerId, setDisposerId] = useState()
-  const [wasteId, setWasteId] = useState();
-  const [adminAddress, setAdminAddress] = useState();
-  const [amount, setAmount] = useState();
+  const [disposerId, setDisposerId] = useState("");
+  const [wasteId, setWasteId] = useState(Number);
+  const [adminAddress, setAdminAddress] = useState("");
+  const [amount, setAmount] = useState(Number);
 
-  const [displayBalnce, setDisplayBalnce] = useState(false)
+  const [displayBalnce, setDisplayBalnce] = useState(false);
 
     // check if the form is fill
   const isFormFilled = disposerId && wasteId && adminAddress && amount;
 
     // to clear the form after
-    const clearForm = () => {
-      setDisposerId();
-      setWasteId();
-      setAdminAddress();
-      setAmount();
-    }
+  const clearForm = () => {
+    setDisposerId("");
+    setWasteId(Number);
+    setAdminAddress("");
+    setAmount(Number);
+  };
 
   const [deBounceDisposerId] = useDebounce(disposerId, 500);
   const [deBounceWasteId] = useDebounce(wasteId, 500);
   const [deBounceAdminAddress] = useDebounce(adminAddress, 500);
   const [deBounceAmount] = useDebounce(amount, 500);
     
-    // write to the contract
-    const { write: payDisposer } = useContractTrans(amount)
 
-    const handlePayDisposer = async () => {
-      if(!payDisposer) {
-        throw "Transanction Failed"
-      }
-      setLoading(true)
-      if(!isFormFilled) throw new Error("Please enter the correct collector wallet address");
+  //Approve Payment
+  const { write: approvePayment } = useContractApprove(deBounceAmount);
+  // Pay Disposer
+  const {write: payDisposer}  = useContractTrans(deBounceDisposerId, deBounceWasteId, wasteId, deBounceAdminAddress, deBounceAmount)
 
-      const transTx = await payDisposer();
-      setLoading(false)
-      await transTx
-
-
-      clearForm()
+  const handlePayDisposer = async () => {
       
-    }
+    if (!approvePayment) {
+      throw "Transanction Not Approved"
+    };
 
-    const disposerPayment = async (e) => {
-      e.preventDefault();
-      try {
-        await toast.promise(handlePayDisposer(), {
-          pending: "Payment in Progress",
-          success: "Payment Successful",
-          error:"Error Paying Disposer, please check the wallet address and try again."
-        })
-      } catch (e) {
-        console.log({e});
-        toast.error(e?.message || "Something went wrong. Try Again later. Contact for help")
-      }
+    // if (!payDisposer) {
+    //   throw "Transanction Failed"
+    // };
+    setLoading(true);
+    if (!isFormFilled) throw new Error("Please enter the correct collector wallet address");
+
+    const approveTx = await approvePayment();
+    approveTx;
+  
+    // const transTx = payDisposer();
+    // await transTx;
+    setLoading(false);
+    clearForm();
+      
+  };
+
+  const disposerPayment = async (e) => {
+    e.preventDefault();
+    try {
+      await toast.promise(handlePayDisposer(), {
+        pending: "Payment in Progress",
+        success: "Payment Successful",
+        error: "Error Paying Disposer."
+      })
+    } catch (e) {
+      console.log({ e });
+      toast.error(e?.message || "Something went wrong.")
     }
+  };
     
-    const { address, isConnected} = useAccount();
-    const { data: toroBalance} = useBalance({
-        address,
-        token: ERC20.address
-    });
-    
-    useEffect(() => {
-        if(isConnected && toroBalance) {
-            setDisplayBalnce(true)
-            return;
-        }
-        setDisplayBalnce(false)
-    }, [toroBalance, isConnected])
+//0x98D5486043F8Be62dB6d3cB2466Ff6339483689C
+//0x5Ec93469583ccaa023e32D43F916979eF4A983F7
     
   return (
     <div className=' flex bg-[#040D12] h-screen'>
@@ -92,22 +90,12 @@ const PayDisposer = () => {
           <form onSubmit={disposerPayment}>
             <div className="mb-8">
               <input
-                type="number"
+                type="text"
                 onChange={(e) => setDisposerId(e.target.value)}
                 className="border-none w-full px-4 py-2 rounded-sm"
                 name="Id"
                 id="disposerId"
-                placeholder="Disposer Id"
-              />
-            </div>
-            <div className="mb-8">
-              <input
-                type="number"
-                onChange={(e) => setWasteId(e.target.value)}
-                className="border-none w-full px-4 py-2 rounded-sm"
-                name="WasteId"
-                id="wasteID"
-                placeholder="Waste ID"
+                placeholder="Disposer Address"
               />
             </div>
             <div className="mb-8">
@@ -118,6 +106,16 @@ const PayDisposer = () => {
                 name="adminAddress"
               id="adminAddress"
                 placeholder="Admin Address"
+              />
+            </div>
+            <div className="mb-8">
+              <input
+                type="number"
+                onChange={(e) => setWasteId(e.target.value)}
+                className="border-none w-full px-4 py-2 rounded-sm"
+                name="WasteId"
+                id="wasteID"
+                placeholder="Waste ID"
               />
             </div>
             <div className="mb-8">
