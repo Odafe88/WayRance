@@ -58,7 +58,7 @@ contract WayRance is Ownable {
 
     // Constructor to set the waste admin during deployment
     constructor() {
-        wasteAdmin = payable(0xf03FD6684637416723715871221180BC5D912BD4);
+        wasteAdmin = 0xf03FD6684637416723715871221180BC5D912BD4;
     }
 
     // Struct to represent waste records
@@ -107,11 +107,16 @@ contract WayRance is Ownable {
     event DisposerRegistered(uint256 indexed disposerId, string name, string location, address walletAddress);
 
 
-
     // Modifier to restrict access to the waste admin
     modifier onlyWasteAdmin() {
         require(msg.sender == wasteAdmin, "Only the waste admin can perform this action");
         _;
+    }
+
+    function getAdminAddress() external view returns (address) {
+        require(wasteAdmin != address(0), "Waste Admin is not set");
+
+        return wasteAdmin;
     }
 
 

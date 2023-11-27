@@ -11,9 +11,14 @@ import { ToastContainer } from "react-toastify";
 import { publicProvider } from 'wagmi/providers/public';
 import { toronet } from "./utils/chain.ts";
 
-import store, {persistor} from "./redux/store/index.js";
+
+
+
+import store, {persistor} from "./redux/store.js";
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from "react-redux";
+
+
 
 
 
@@ -22,6 +27,16 @@ const { chains, publicClient } = configureChains(
   [publicProvider()],
 );
 
+
+// : [
+//   new InjectedConnector({ chains }),
+//   new WalletConnectConnector({
+//     chains,
+//     options: {
+//       projectId: '0.1.0',
+//     },
+//   }),
+// ]
 
 const { connectors } = getDefaultWallets({
   appName: "Wayrance",
@@ -35,11 +50,14 @@ const wagmiConfig = createConfig({
   publicClient,
 });
 
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
       <WagmiConfig config={wagmiConfig}>
+      <PersistGate persistor={persistor}>
           <RainbowKitProvider
           theme={lightTheme({
             accentColor: '#EFAE07',
@@ -62,6 +80,8 @@ root.render(
               />
             <App />
           </RainbowKitProvider>
+        </PersistGate>
       </WagmiConfig>
+    </Provider>
 </React.StrictMode>
 );

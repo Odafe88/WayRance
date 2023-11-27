@@ -1,5 +1,5 @@
 {
-  "address": "0xE230F7AEd1a27C47494430Beb072DdF77793ef1E",
+  "address": "0xe7C91dE79178b2E65aF9133565BAD279D2D6D4eE",
   "abi": [
     {
       "inputs": [],
@@ -238,6 +238,21 @@
       "type": "function",
       "constant": true,
       "signature": "0x61c16873"
+    },
+    {
+      "inputs": [],
+      "name": "getAdminAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true,
+      "signature": "0xb2e6b912"
     },
     {
       "inputs": [],

@@ -122,7 +122,7 @@ const AddWaste = () => {
           </form>
           <div className="py-4">
             <p className="text-black font-bold mb-4 text-xl">Plastic: 500Naira/Kg</p>
-            <p className="text-black font-bold mb-4 text-xl">Plastic: 750Naira/Kg</p>
+            <p className="text-black font-bold mb-4 text-xl">Metals: 750Naira/Kg</p>
             <p className="text-red-500">*We only accept Plastics and Metals Wastes/Scraps</p>
           </div>
               </div>
