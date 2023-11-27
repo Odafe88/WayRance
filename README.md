@@ -13,7 +13,7 @@ Funds are generated primarily from sales of waste to Recycling plants. These fun
 The Project will only focus on two types of Waste Materials: Plastic and Metals.
 
 ### NETWORK: TESTNET
-### CONTRACT ADDRESS: 0xff0dFAe9c45EeB5cA5d269BE47eea69eab99bf6C
+### CONTRACT ADDRESS: 0x5Ec93469583ccaa023e32D43F916979eF4A983F7
 
 ## Links
 - This is an original work by our team. We build on top of the following tooling: React, TailwindCSS, Solidity, Wagmi, Ethers.Js, Toronet.
