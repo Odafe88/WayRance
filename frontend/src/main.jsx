@@ -5,12 +5,14 @@ import App from "./App";
 import '../polyfills.js'
 import "@rainbow-me/rainbowkit/styles.css";
 import "react-toastify/dist/ReactToastify.css";
-import { getDefaultWallets, RainbowKitProvider, lightTheme } from "@rainbow-me/rainbowkit";
-import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { ToastContainer } from "react-toastify";
-import { publicProvider } from 'wagmi/providers/public';
-import { toronet } from "./utils/chain.ts";
 
+
+import { getDefaultWallets, RainbowKitProvider, lightTheme } from "@rainbow-me/rainbowkit";
+
+import { configureChains, createConfig } from "wagmi";
+import { injected } from 'wagmi/connectors'
+import { mainnet, sepolia } from 'wagmi/chains'
+import { createClient } from 'viem'
 
 
 
@@ -20,23 +22,9 @@ import { Provider } from "react-redux";
 
 
 
+const config = createConfig(
 
-
-const { chains, publicClient } = configureChains(
-  [toronet],
-  [publicProvider()],
 );
-
-
-// : [
-//   new InjectedConnector({ chains }),
-//   new WalletConnectConnector({
-//     chains,
-//     options: {
-//       projectId: '0.1.0',
-//     },
-//   }),
-// ]
 
 const { connectors } = getDefaultWallets({
   appName: "Wayrance",
@@ -46,8 +34,13 @@ const { connectors } = getDefaultWallets({
 
 const wagmiConfig = createConfig({
   autoConnect: false,
-  connectors,
+  connectors: [injected({ chains: [mainnet, sepolia] })], 
   publicClient,
+  chains: [mainnet, sepolia],
+  transports: {
+    [mainnet.id]: http('https://mainnet.example.com'),
+    [sepolia.id]: http('https://sepolia.example.com'),
+  },
 });
 
 

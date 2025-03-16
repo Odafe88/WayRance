@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@rainbow-me/rainbowkit": "^1.2.0",
+    "@rainbow-me/rainbowkit": "^2.2.4",
     "ethers": "^6.8.1",
     "primereact": "^10.0.9",
     "react": "^18.2.0",
@@ -25,7 +25,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
     "use-debounce": "^10.0.0",
-    "wagmi": "^1.4.6"
+    "wagmi": "^2.14.12"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
@@ -36,8 +36,9 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "hardhat": "^2.22.19",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.5",
-    "vite": "^4.4.5"
+    "vite": "^6.2.0"
   }
 }
