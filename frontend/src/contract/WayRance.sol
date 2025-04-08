@@ -3,8 +3,11 @@ pragma solidity ^0.8.18;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
-contract WayRance is Ownable {
+contract WayRance is Ownable(address(msg.sender)) {
+    using SafeMath for uint256; // Enables SafeMath for uint256
+
     IERC20 public paymentToken;
 
     constructor(address _paymentToken) {
@@ -15,7 +18,6 @@ contract WayRance is Ownable {
     struct Waste {
         address payable disposer;
         string wasteType;
-        string collectionLocation;
         uint256 weight;
         bool isRecorded;
         bool isValidated;
@@ -26,7 +28,6 @@ contract WayRance is Ownable {
     struct Disposer {
         string name;
         uint256 userId;
-        string location;
         string email;
         address payable walletAddress;
     }
@@ -38,11 +39,11 @@ contract WayRance is Ownable {
     uint256 public disposerCounter;
     uint256 public wasteCounter;
 
-    event WasteRecorded(uint256 indexed wasteId, address disposer, string wasteType, string collectionLocation, uint256 weight, uint256 wasteAmount);
+    event WasteRecorded(uint256 indexed wasteId, address disposer, string wasteType, uint256 weight, uint256 wasteAmount);
     event WasteValidated(uint256 indexed wasteId, address indexed wasteAdmin);
     event PaymentSent(address indexed recipient, uint256 amount);
     event FundsWithdrawn(address indexed wasteAdmin, uint256 amount);
-    event DisposerRegistered(uint256 indexed disposerId, string name, string location, address walletAddress);
+    event DisposerRegistered(uint256 indexed disposerId, string name, address walletAddress);
 
     modifier onlyWasteAdmin() {
         require(msg.sender == wasteAdmin, "Only the waste admin can perform this action");
@@ -53,16 +54,21 @@ contract WayRance is Ownable {
         return wasteAdmin;
     }
 
-    function registerDisposer(string memory _name, string memory _location, string memory _email, address payable _walletAddress) public {
+    function registerDisposer(string memory _name, string memory _email, address payable _walletAddress) public {
         require(_walletAddress != address(0), "Invalid wallet address");
-        uint256 disposerIndex = disposerCounter++;
-        disposers[disposerIndex] = Disposer(_name, disposerIndex, _location, _email, _walletAddress);
-        emit DisposerRegistered(disposerIndex, _name, _location, _walletAddress);
+        uint256 disposerIndex = disposerCounter;
+        disposerCounter = disposerCounter.add(1); // Using SafeMath for addition
+        disposers[disposerIndex] = Disposer(_name, disposerIndex, _email, _walletAddress);
+        emit DisposerRegistered(disposerIndex, _name, _walletAddress);
     }
 
-    function recordWaste(address payable _disposer, string memory _wasteType, string memory _collectionLocation, uint256 _weight, uint256 _wasteAmount) public {
-        wasteRecords[wasteCounter++] = Waste(_disposer, _wasteType, _collectionLocation, _weight, true, false, false, _wasteAmount);
-        emit WasteRecorded(wasteCounter, _disposer, _wasteType, _collectionLocation, _weight, _wasteAmount);
+    function recordWaste(address payable _disposer, string memory _wasteType, uint256 _weight, uint256 _wasteAmount) public {
+        require(_weight > 0, "Weight must be greater than 0");
+        require(_wasteAmount > 0, "Waste amount must be greater than 0");
+        uint256 wasteIndex = wasteCounter;
+        wasteCounter = wasteCounter.add(1); // SafeMath for incrementing
+        wasteRecords[wasteIndex] = Waste(_disposer, _wasteType, _weight, true, false, false, _wasteAmount);
+        emit WasteRecorded(wasteIndex, _disposer, _wasteType, _weight, _wasteAmount);
     }
     
     function validateWaste(uint256 _wasteId) public onlyWasteAdmin {
@@ -87,7 +93,7 @@ contract WayRance is Ownable {
 
     function retriveDisposers() public view returns (Disposer[] memory) {
         Disposer[] memory _disposers = new Disposer[](disposerCounter);
-        for (uint256 i = 0; i < disposerCounter; i++) {
+        for (uint256 i = 0; i < disposerCounter; i = i.add(1)) { // Using SafeMath for loop counter
             _disposers[i] = disposers[i];
         }
         return _disposers;

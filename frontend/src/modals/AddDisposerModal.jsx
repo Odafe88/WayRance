@@ -14,7 +14,6 @@ const AddDisposerModal = () => {
   const [toggle, setToggle] = useState(false);
   const [loading, setLoading] = useState(false)
   const [name, setName] = useState("");
-  const [Location, setLocation] = useState();
   const [email, setEmail] = useState("");
   const [walletAddress, setWalletAddress] = useState("");
   
@@ -26,7 +25,6 @@ const AddDisposerModal = () => {
 
   const handleClear = () => {
     setName("");
-    setLocation("");
     setEmail("");
     setWalletAddress("");
   };
@@ -124,19 +122,6 @@ const AddDisposerModal = () => {
                 id="disposerEmail"
                 placeholder="Email"
               />
-            </div>
-            <div className="mb-8">
-            <input
-                type="text"
-                onChange={(e) => setLocation(e.target.value)}
-                className="border-none w-full px-4 py-2 rounded-sm"
-                name="location"
-                id="disposerLoc"
-                placeholder="Location"
-              />
-              {/* <Dropdown id="userLocation" type="text" value={Location} onChange={(e) => setLocation(e.value)} options={states} optionLabel="name" 
-                editable placeholder="Select a City" className="border-none bg-white outline-none w-full px-4 py-2 rounded-sm"
-              /> */}
             </div>
 
             <div className="mb-8">

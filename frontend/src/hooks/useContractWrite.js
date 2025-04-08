@@ -1,27 +1,16 @@
-import { useContractWrite, usePrepareContractWrite } from 'wagmi';
-import WayRanceAbi from '../abi/wayrance.json';
+import { useWriteContract } from 'wagmi';
+import abi from '../abi/new-wayrance.json';
 
+export const useContractSend = (functionName, args = []) => {
+  const { data, isLoading, isSuccess, write, error } = useWriteContract({
+    address: abi.address,
+    abi: abi.abi,
+    functionName,
+    args,
+    onError: (err) => {
+      console.log(err);
+    }
+  });
 
-export const useContractSend = (functionName) => {
-
-    // const {config} = usePrepareContractWrite({
-    //     // the address of the waste contract
-    //     address: WayRanceAbi.address,
-    //     abi: WayRanceAbi.abi,
-    //     functionName,
-    //     args,
-    //     onError: (err) => {
-    //         console.log(err);
-    //     }
-    // })
-
-    const { data, isLoading, isSuccess, write } = useContractWrite({
-          address: WayRanceAbi.address,
-          abi: WayRanceAbi.abi,
-          functionName,
-        })
-        
-
-    //const {data, isSuccess, write, writeAsync, error, isLoading} = useContractWrite(config)
-    return { data, isSuccess, write, isLoading}
-}
+  return { data, isLoading, isSuccess, write, error };
+};

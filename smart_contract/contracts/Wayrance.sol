@@ -4,7 +4,7 @@ pragma solidity ^0.8.18;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract WayRance is Ownable {
+contract WayRance is Ownable(address(msg.sender)) {
     IERC20 public paymentToken;
 
     constructor(address _paymentToken) {
@@ -83,6 +83,14 @@ contract WayRance is Ownable {
     function withdrawFunds(uint256 _amount) public onlyWasteAdmin {
         require(paymentToken.transfer(wasteAdmin, _amount), "Withdrawal failed");
         emit FundsWithdrawn(wasteAdmin, _amount);
+    }
+
+    function retriveDisposers() public view returns (Disposer[] memory) {
+        Disposer[] memory _disposers = new Disposer[](disposerCounter);
+        for (uint256 i = 0; i < disposerCounter; i++) {
+            _disposers[i] = disposers[i];
+        }
+        return _disposers;
     }
 
     receive() external payable {}
