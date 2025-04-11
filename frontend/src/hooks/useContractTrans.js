@@ -1,6 +1,6 @@
 import { useWriteContract } from 'wagmi';
 import { parseEther } from 'ethers';
-import WayRanceABI from '../abi/wayrance.json';
+import WayRanceABI from '../abi/new-wayrance.json';
 
 export const useContractTrans = (
   receiverAddr,

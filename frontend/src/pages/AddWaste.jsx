@@ -10,7 +10,6 @@ const AddWaste = () => {
   const router = useNavigate();
   const [wallet, setWallet] = useState()
   const [wasteType, setWasteType] = useState('')
-  const [collectionLocation, setCollectionLocation] = useState('')
   const [weight, setWeight] = useState('')
   const [wasteAmount, setWasteAmount] = useState()
   
@@ -27,8 +26,7 @@ const AddWaste = () => {
   // clear the form when the form is filed 
   const handleClear = () => {
     setWallet();
-    setWasteType('')
-    setCollectionLocation('')
+    setWasteType('');
     setWeight('');
     setWasteAmount(0);
   }
@@ -46,7 +44,6 @@ const AddWaste = () => {
   const {write : recordWaste } = useContractSend('recordWaste', [
     debouncedWallet,
     debouncedWasteType,
-    debouncedCollectionLocation,
     debounceWeight,
     debounceWasteAmount
   ])
@@ -101,10 +98,6 @@ const AddWaste = () => {
                       </div>
                       <div className='mb-8'>
                           <input type="text" onChange={(e) => setWasteType(e.target.value)} className='border-none w-full px-4 py-2 rounded-sm' name='wasteType' id="wasteType" placeholder='Waste Type' />
-                      </div>
-
-                      <div className='mb-8'>
-                          <input type="text" onChange={(e) => setCollectionLocation(e.target.value)} className=' border-none w-full px-4 py-2 rounded-sm' name='collectionLocation' id="collectionLocation" placeholder='Your Location(Address)' />
                       </div>
 
                       <div className='mb-8'>

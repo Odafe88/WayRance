@@ -21,7 +21,7 @@ const AddDisposerModal = () => {
   const [registeredUser] = useGlobalState('registeredUser');
 
   const isFormFilled =
-    name && Location && email && walletAddress;
+    name && email && walletAddress;
 
   const handleClear = () => {
     setName("");
@@ -35,13 +35,11 @@ const AddDisposerModal = () => {
   }
 
   const [ debounceName ] = useDebounce(name, 500)
-  const [debounceLocation] = useDebounce(Location, 500)
   const [ debounceEmail ] = useDebounce(email, 500)
   const [ debouncewalletAdd ] = useDebounce(walletAddress, 500)
 
   const { write: registerUser} = useContractSend('registerDisposer', [
     debounceName,
-    debounceLocation,
     debounceEmail,
     debouncewalletAdd
   ])

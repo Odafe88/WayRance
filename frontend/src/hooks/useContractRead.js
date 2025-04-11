@@ -1,9 +1,9 @@
-import { useContractRead } from "wagmi";
-import WayranceAbi from '../abi/wayrance.json'
+import { useReadContract } from "wagmi";
+import WayranceAbi from '../abi/new-wayrance.json'
 
 export const useContractCall = (functionName, args, watch) => {
 
-    const resp = useContractRead({
+    const resp = useReadContract({
 
         address: WayranceAbi.address,
         abi: WayranceAbi.abi,
