@@ -20,22 +20,22 @@ export default function Home() {
   // }
   return (
     <div className="
-      mx-auto px-[10px] md:px-[70px] py-[50px] md:py-[123px]
-      bg-[#040D12]
+      mt-[5rem] mx-0
+      bg-[#040D12] min-w-full min-h-screen
       ">
       
-      <section className="flex flex-col md:flex-row mb-[130px] md:mb-0">
-        <div className="px-4 ">
+      <section className="md:h-screen px-[2.5rem] pt-[2.5rem] md:px-[5rem] flex flex-col items-center justify-between w-full md:flex-row">
+        <div className="w-full md:w-1/2">
           {/* text-[#282e82] */}
-          <h1 className="text-white sm:pb-4 text-4xl md:text-6xl font-semibold sm:leading-normal">
+          <h1 className="text-white sm:pb-4 text-[2rem] md:text-[4rem] font-semibold sm:leading-normal">
             Decentralizing <br /><span className="text-[#64CCC5]">Waste</span> Management,
             Empowering <span className="text-[#64CCC5]">People</span><br />
           </h1>
-          <div className="pt-[20px] pb-[60px] mt-8 md:pt-0 pb-0">
+          <div className="md:pt-0 pb-0">
             <CustomButton content={`Register as Disposer`} type="submit" onClick={handleUserReg} />
           </div>
         </div>
-        <div className="hidden md:flex md:justify-center md:items-center md:w-2/3">
+        <div className="hidden md:flex md:justify-center md:items-center md:w-1/2">
           <img
             alt="world-logo"
             className=" w-[270px] h-[270px] mb-[120px] md:mb-[90px] md:w-[450px] md:h-[450px]"
@@ -44,7 +44,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-6 md:mt-3 px-4 md:px-8">
+      <section className="md:h-screen px-[2.5rem] pt-[2.5rem] md:px-[5rem]">
         <h1 className=" text-white text-2xl sm:text-4xl 
         font-semibold leading-10"> How it works</h1>
 

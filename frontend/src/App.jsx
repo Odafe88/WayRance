@@ -41,11 +41,10 @@ export default function App() {
 
 const Root = () => {
   return (
-    <div>
+    <div className="relative mx-auto min-w-full min-h-screen">
       <Navbar  />
-      <div >
-        <Outlet />
-      </div>
+      <Outlet />
+      
     </div>
   );
 };

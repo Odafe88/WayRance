@@ -13,11 +13,11 @@ export default function Navbar() {
   };
 
   return (
-    <header className="mx-auto bg-[#040D12]">
-      <nav className=" flex py-4 px-8 items-center justify-between ">
-        <div className="w-[60px] md:w-[80px]  cursor-pointer">
-          <h1 className="text-[#fff] text-[20px] font-bold ">
-            <Link to="/">WayRance</Link>
+    <header className="fixed h-[5rem] t-0 r-0 l-0 w-full mx-auto bg-[#040D12]">
+      <nav className=" flex items-center justify-between px-[2.5rem] py-[1rem] md:px-[5rem]">
+        <div className="w-[60px] md:w-[80px] cursor-pointer">
+          <h1 className="text-[#fff] text-[1.2rem] md:text-[1.8rem] font-bold ">
+            <Link to="/">Dumprr</Link>
           </h1>
         </div>
         {
@@ -25,7 +25,7 @@ export default function Navbar() {
           
             <div className="hidden md:flex md:items-center md:justify-between gap-6">
               <h3 className="
-                text-[#fff] text-[16px] font-bold leading-none
+                text-[#fff] text-[1.2rem] md:text-[1.8rem] font-bold leading-none
                 hover:text-yellow-500
               ">
                 <Link to="/admin">Admin</Link>
@@ -34,23 +34,23 @@ export default function Navbar() {
           :
         <div className="hidden md:flex md:items-center md:justify-between gap-6">
           <h3 className="
-          text-[#fff] text-[16px] font-bold leading-none
+          text-[#fff] text-[1.2rem] md:text-[1.6rem] font-bold leading-none
           hover:text-yellow-500
           ">
             <Link to="/disposer">Disposer</Link>
           </h3>
         </div>
         }
-        <div className="hidden  md:flex">
+        <div className="hidden md:flex md:items-center md:justify-between">
           <ConnectWallet />
         </div>
 
-        <div className="md:hidden  mt-3">
+        <div className="md:hidden md:flex md:items-center md:justify-between">
           <button className="text-white" onClick={toggleMenu}>
             {isOpen ? (
-              <FaTimes className="text-2xl" />
+              <FaTimes className="text-[1.5rem]" />
             ) : (
-              <FaBars className="text-2xl" />
+              <FaBars className="text-[1.5rem]" />
             )}
           </button>
         </div>
@@ -58,11 +58,11 @@ export default function Navbar() {
       </nav>
 
       {isOpen && (
-        <div className="fixed z-20 top-0 bg-[#040D12] 
-         right-0 bottom-0 left-0 flex flex-col 
-         items-center gap-6 justify-center">
+        <div className="fixed z-20 top-0 bg-[#040D12] h-3/4
+         right-0 bottom-0 left-0 px-[2.5rem] py-[1rem] md:px-[5rem] flex flex-col 
+         gap-6 items-center justify-center">
           <button
-            className="text-white absolute top-4 right-4"
+            className="text-white absolute top-0 right-0 px-[2.5rem] py-[1rem]"
             onClick={toggleMenu}
           >
             <FaTimes className="text-2xl" />
